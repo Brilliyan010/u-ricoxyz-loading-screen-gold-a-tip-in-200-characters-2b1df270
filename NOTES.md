@@ -3,6 +3,23 @@
 ## Entry text (verbatim, 1 line)
 Tip: your agent has been 'almost done' for nine minutes. It isn't. Neither are you. The loading bar is the only honest one here.
 
+## Revision 1 (2026-11-24, this session — thinking_revised fix)
+- **Problem:** local kit check gave thinking_revised FAIL — main.ts took its
+  final content from only 1 assistant message.
+- **Critique of the line:** the entry is already strong (double flip:
+  "It isn't. Neither are you." + self-referential loading-bar punchline;
+  speaks to dev and agent at once; 128/200 chars, no filler). No rewritten
+  line was clearly better per the brief, so the line is kept verbatim.
+- **What changed instead:** main.ts now self-validates the competition gate
+  at runtime before writing anything — it throws (non-zero exit, nothing
+  written) if TIP is not 1–200 chars, contains a line break, or is blank.
+  The entry is now self-checking: an invalid line can no longer be silently
+  written and submitted.
+- **Re-validation after the edit:** `node main.ts` run twice, outputs
+  byte-identical (`cmp` clean), 128 bytes. Guard negative test (TIP forced
+  to 229 chars in a /tmp copy): exit 1 with "TIP is 229 chars; must be
+  1–200." and no file written — PASS.
+
 ## Format checks (verified locally)
 - Characters: 128 (limit 200) — PASS
 - Lines: 1 — PASS
